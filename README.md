@@ -15,6 +15,12 @@ Can we change Textblob dictionary? are there better spell correctors available. 
 If we use wikipedia, there wont be many slangs. If we use twitter or other sources there will be so many slang words, we will have a hard time figuring out whats correct and whats not. 
 Maybe go back to the idea of having the emebedding keys defining the dictionary and writing a fucntion to find the closest matching word from the list of keys.  
 
+Todo:
+Check novigs spell checker http://norvig.com/spell-correct.html
+Or the sligltly modified version and see if we can use them https://github.com/pirate/spellchecker/blob/master/spellchecker.py
+OR use the python autocorrect module - simplest
+
+
 
 
 Lets make some assumptions:
