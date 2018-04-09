@@ -16,13 +16,18 @@ If we use wikipedia, there wont be many slangs. If we use twitter or other sourc
 Maybe go back to the idea of having the emebedding keys defining the dictionary and writing a fucntion to find the closest matching word from the list of keys.  
 
 Todo:
-Check novigs spell checker http://norvig.com/spell-correct.html
-Or the sligltly modified version and see if we can use them https://github.com/pirate/spellchecker/blob/master/spellchecker.py
-OR use the python autocorrect module - simplest
+use the python autocorrect module - simplest
 
 
 
 
 Lets make some assumptions:
 1) Mostly its english. But some entire sentences can be some other language. we can do language detection and translation using TextBlob
-2) 
+
+
+Pipeline: 
+1) Use nltk ot textblob to tolkanize text sections. 
+2) Use top K words to identify language. If non English, use Textblob to translate. 
+3) Do some rough cleaning + spell correction using autocorrect module
+4) Encode using the given embeddings - and log words that can't be encoded
+5) 
