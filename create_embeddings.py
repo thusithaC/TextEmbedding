@@ -6,11 +6,21 @@ from nltk.tokenize import StanfordTokenizer
 from nltk.tokenize.api import StringTokenizer
 import re
 from autocorrect import spell
+import platform
+import gc
 
-NUM_PROC = 4
-EMBEDDING_FILE = '/media/SharedData/work/data/pretrained/crawl-300d-2M_trunc.vec.pickle'
+DESKTOP_PC = 'thusitha-MS-7A34'
 
-DATA_FILE = '/media/SharedData/work/data/toxic/train.csv'
+if platform.node() == DESKTOP_PC:
+    print("Desktop PC, 8 processors")
+    NUM_PROC = 5
+    EMBEDDING_FILE = '/home/thusitha/work/bigdata/datasets/pretrained/crawl-300d-2M_trunc.vec.pickle'
+    DATA_FILE = '/home/thusitha/work/bigdata/datasets/toxic/train.csv'
+else:
+    NUM_PROC = 4
+    EMBEDDING_FILE = '/media/SharedData/work/data/pretrained/crawl-300d-2M_trunc.vec.pickle'
+    DATA_FILE = '/media/SharedData/work/data/toxic/train.csv'
+
 
 
 def getdata_from_csv(csvpath):
@@ -51,6 +61,7 @@ def __tolkenize_text_blob(text, clean_html, remove_reps, spell_correct, tolkeniz
     tokens = tolkenizer_obj.tokenize(text)
     if spell_correct:
         tokens = [spell(t) for t in tokens]
+    gc.collect()
     return tokens
 
 def par_tokenize(text_list, clean_html=False, tokenizer="twitter", remove_reps=True, spell_correct=True):
@@ -71,6 +82,7 @@ def par_tokenize(text_list, clean_html=False, tokenizer="twitter", remove_reps=T
 
 df = getdata_from_csv(DATA_FILE)
 tokens_list  = tokenize(df.comment_text, clean_html=False)
-tokens_list  = par_tokenize(df.comment_text, clean_html=False)
+#tokens_list  = par_tokenize(df.comment_text, clean_html=False)
+pickle.dump(tokens_list, open( "tokens_list.pickle", "wb" ) )
 
 
